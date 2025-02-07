@@ -1,0 +1,13 @@
+# Entorno virtual
+env/
+
+# Archivos de configuración de Django
+*.pyc
+__pycache__/
+
+# Base de datos SQLite
+db.sqlite3
+
+# Configuración de editor de texto
+.vscode/
+.idea/

@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+img {
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+}
+
+.info {
+    margin-top: 20px;
+}
+
+.info p {
+    font-size: 18px;
+}
+
+.back-link {
+    margin-top: 20px;
+    display: block;
+    font-size: 18px;
+    text-decoration: none;
+    color: rgb(102, 102, 232);
+}

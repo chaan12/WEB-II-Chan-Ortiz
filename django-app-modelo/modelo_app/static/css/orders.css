@@ -1,0 +1,21 @@
+h1 {
+    text-align: center;
+    color: blue;
+}
+
+p {
+    text-emphasis: center;
+    color: red;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(2 , 1fr);
+}
+
+.container div {
+    text-align: center;
+    color: green;
+    font-size: 20px;
+    border: 1px solid black;
+}

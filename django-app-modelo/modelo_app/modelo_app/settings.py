@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "users.apps.UsersConfig",
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'modelo_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -105,12 +105,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-mx'  # ✅ Cambiado a español de México
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Mexico_City'  # ✅ Cambiado a la hora de México
 
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -118,6 +117,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+# Configuración para archivos multimedia
+MEDIA_URL = '/media/'  # ✅ URL base para archivos subidos
+MEDIA_ROOT = BASE_DIR / 'media'  # ✅ Carpeta donde se guardarán los archivos subidos
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

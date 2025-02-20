@@ -1,18 +1,12 @@
-<nav>
-    <div class="menu">
-        <div class="menu-logo">
-            <a>Logo</a>
-        </div>
-        <div class="menu-options">
-            <div>
-                <a>Home</a>
-            </div>
-            <div>
-                <a>About</a>
-            </div>
-            <div>
-                <a href="#">Users</a>
-            </div>
-        </div>
+<header>
+    <div class="logo">
+        <h1>Mi Aplicación</h1>
     </div>
-</nav>
+    <nav>
+        <ul>
+            <li><a href="{% url 'index' %}">Inicio</a></li>
+            <li><a href="{% url 'users:index' %}">Usuarios</a></li>
+            <li><a href="{% url 'orders:index' %}">Órdenes</a></li>
+        </ul>
+    </nav>
+</header>

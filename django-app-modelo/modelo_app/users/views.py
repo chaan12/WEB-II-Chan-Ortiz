@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from .models import User
 
 def usersIndex(request):
@@ -9,7 +9,6 @@ def createUsersView(request):
     return render(request, "users/create.html")
 
 def createUser(request):
-    data = {}
     try:
         if request.method == "POST":
             name = request.POST.get("name")
@@ -18,19 +17,30 @@ def createUser(request):
             rfc = request.POST.get("rfc")
             photo = request.POST.get("photo")
 
-            user = User(name=name, email=email, age=age, rfc=rfc, photo=photo)
-            user.save()
-
-            data["user"] = user
-            data["message"] = "User created"
-            data["status"] = "success"
-
+            User.objects.create(name=name, email=email, age=age, rfc=rfc, photo=photo)
+            return redirect('users:index')
+    
     except Exception as e:
-        data["message"] = str(e)
-        data["status"] = "error"
-
-    return render(request, "users/create.html", data)
+        return render(request, "users/create.html", {"message": f"Error: {str(e)}", "status": "error"})
+    
+    return render(request, "users/create.html")
 
 def userDetail(request, id):
     user = get_object_or_404(User, id=id)
     return render(request, "users/detail.html", {"user": user})
+
+def edit_user(request, id):
+    user = get_object_or_404(User, id=id)
+    
+    if request.method == 'POST':
+        try:
+            user.name = request.POST.get('name', user.name)
+            user.email = request.POST.get('email', user.email)
+            user.age = request.POST.get('age', user.age)
+            user.photo = request.POST.get('photo', user.photo)
+            user.save()
+            return redirect('users:index')
+        except Exception as e:
+            return render(request, 'users/edit.html', {'user': user, 'error': str(e)})
+    
+    return render(request, 'users/edit.html', {'user': user})

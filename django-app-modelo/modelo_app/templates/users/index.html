@@ -1,28 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de clientes</title>
-    <link rel="stylesheet" href="../../static/css/users.css">
-</head>
-<body>
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/users.css' %}">
+{% endblock %}
+
+{% block content %}
 
     <h1>Lista de clientes</h1>
 
-    <div class="grid-container">
-        {% for user in users %}
-        <div class="card">
-            <a href="{% url 'user-detail' user.id %}">
-                <img src="{{ user.photo }}" alt="{{ user.name }}">
+    <div class="container">
+        {% for item in users %}
+            <div class="card">
+                <img src="{{ item.photo }}" alt="{{ item.name }}">
                 <div class="info">
-                    <p><b>{{ user.name }}</b></p>
-                    <p><b>ID:</b> {{ user.id }} <b>Age:</b> {{ user.age }}</p>
+                    <p><b>{{ item.name }}</b></p>
+                    <p><b>ID:</b> {{ item.id }} <b>Age:</b> {{ item.age }}</p>
                 </div>
-            </a>
-        </div>
+            </div>
         {% endfor %}
     </div>
 
-</body>
-</html>
+{% endblock %}

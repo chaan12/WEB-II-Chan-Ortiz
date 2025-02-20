@@ -5,7 +5,7 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     age = models.IntegerField()
     rfc = models.CharField(max_length=13, unique=True)
-    photo = models.URLField()  # URL para la imagen del usuario
+    photo = models.URLField() 
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 

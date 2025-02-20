@@ -3,26 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles de {{ user.name }}</title>
-    <link rel="stylesheet" href="../../static/css/detail.css">
+    <title>Detalles de user</title>
 </head>
 <body>
-
-    <div class="container">
-        <h1>Detalles de {{ user.name }}</h1>
-        <img src="{{ user.photo }}" alt="{{ user.name }}">
-        <div class="info">
-            <p><b>ID:</b> {{ user.id }}</p>
-            <p><b>Email:</b> {{ user.email }}</p>
-            <p><b>Edad:</b> {{ user.age }}</p>
-            {% if address %}
-                <p><b>Dirección:</b> {{ address.street }}, {{ address.city }}, {{ address.country }}, CP {{ address.zip_code }}</p>
-            {% else %}
-                <p><b>Dirección:</b> No registrada</p>
-            {% endif %}
-        </div>
-        <a href="{% url 'users-index' %}" class="back-link">Volver a la lista</a>
-    </div>
-
+    <h1>Detalles de {{ user.name }}</h1>
+    <p>ID: {{ user.id }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Edad: {{ user.age }}</p>
 </body>
 </html>

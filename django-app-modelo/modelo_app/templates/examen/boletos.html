@@ -1,0 +1,20 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/boletos.css' %}">
+{% endblock %}
+{% block content %}
+    <h1 class="titulo">Boletos</h1>
+    <div class="boletos-container">
+        {% for boleto in boletos %}
+            <div class="boleto-card">
+                <img src="{{ boleto.imagen_url }}" alt="Boleto para {{ boleto.evento.name }}" class="boleto-img">
+                <h2>{{ boleto.evento.name }}</h2>
+                <p class="localidad">Localidad: {{ boleto.evento.localidad.name }}</p>
+                <p class="precio">Precio: ${{ boleto.precio }}</p>
+                <button class="btn-comprar">Comprar</button>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

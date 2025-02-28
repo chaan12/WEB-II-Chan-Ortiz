@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 80px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background: linear-gradient(45deg, #ff0080, #ffbf00, #00ff80, #00bfff, #8000ff);
+    background-size: 400% 400%;
+    animation: fondo-carnaval 10s infinite alternate ease-in-out;
+}
+
+@keyframes fondo-carnaval {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background: linear-gradient(45deg, #4B0082, #6A0DAD, #8000FF, #9932CC, #BA55D3);
+    background-size: 200% 200%;
+    animation: fondo-header 6s infinite alternate ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+@keyframes fondo-header {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    margin: 0;
+}
+
+.logo a {
+    text-decoration: none;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #FFD700;
+    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+}
+
+.titulo {
+    text-align: center;
+    font-size: 2rem;
+    margin: 30px 0;
+}
+
+.eventos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+.evento-card {
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.evento-card:hover {
+    transform: translateY(-5px);
+}
+
+.evento-img {
+    width: 40%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.evento-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.evento-info h2 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    color: #333;
+}
+
+.localidad,
+.descripcion {
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.btn-boletos {
+    margin-top: auto;
+    background: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+.btn-boletos:hover {
+    background: #0056b3;
+}

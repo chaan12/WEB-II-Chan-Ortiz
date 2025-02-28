@@ -1,23 +1,25 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Mi Aplicación{% endblock %}</title>
+    <title>{% block title %}Mi Sitio{% endblock %}</title>
+    
+    <link rel="stylesheet" href="{% static 'css/header.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-    {% block styles %}{% endblock %}
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
 
-    {% include 'base/header.html' %} 
+    {% include "base/header.html" %}
 
-    <main>
+    <div class="content">
         {% block content %}{% endblock %}
+    </div>
 
-    {% include 'base/footer.html' %} 
+    {% include "base/footer.html" %}
 
 </body>
 </html>

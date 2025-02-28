@@ -1,0 +1,67 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="contenedor-index">
+
+    <div class="grid-imagenes">
+        <div class="imagen-grande">
+            <img src="https://img.freepik.com/psd-premium/carnaval-ofertas-diseno-plantillas-redes-sociales-portugues-brasil-renderizado-3d_364106-3325.jpg?w=1480" alt="Imagen 1">
+        </div>
+        <div class="imagen-pequena">
+            <img src="https://img.freepik.com/vector-gratis/fondo-mardi-gras-plano_23-2150000290.jpg" alt="Imagen 2">
+        </div>
+        <div class="imagen-pequena">
+            <img src="https://img.freepik.com/free-vector/gradient-illustration-carnaval-de-barranquilla-celebration_23-2151152833.jpg?t=st=1740720241~exp=1740723841~hmac=50760aeaf322e3a1272ba95d5ea25178a774d813a19b0154ec051a68b3f9cd31&w=1480" alt="Imagen 3">
+        </div>
+        <div class="imagen-pequena">
+            <img src="https://img.freepik.com/psd-premium/disfraces-redes-sociales-tu-carnaval_220664-6324.jpg?w=1480" alt="Imagen 4">
+        </div>
+        <div class="imagen-pequena">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZTVwga6iGSE3EmVoigUpDYs1yv4DwoOA6gfMlUwEE8XVOQobx" alt="Imagen 5">
+        </div>
+    </div>
+
+    <section class="noticias">
+        <h2>NOTICIAS</h2>
+        <div class="noticias-container">
+            <div class="noticia">
+                <img src="https://img.freepik.com/premium-psd/social-media-costumes-your-carnival_220664-6324.jpg?w=1480" alt="Noticia 1">
+                <div class="noticia-info">
+                    <h3>¡Llega el Carnaval!</h3>
+                    <p>El carnaval de Barranquilla es una de las festividades más importantes de Colombia y uno de los carnavales más grandes del mundo.</p>
+                </div>
+            </div>
+            <div class="noticia">
+                <img src="https://img.freepik.com/premium-psd/social-media-costumes-your-carnival_220664-6324.jpg?w=1480" alt="Noticia 2">
+                <div class="noticia-info">
+                    <h3>Colores y Tradición</h3>
+                    <p>Se celebra en la ciudad de Barranquilla, combinando elementos de las culturas africana, indígena y europea.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="eventos">
+        <h2>EVENTOS</h2>
+        <div class="eventos-container">
+            {% for evento in eventos|slice:":3" %}
+            <div class="evento">
+                <img src="{{ evento.imagen_url }}" alt="{{ evento.name }}">
+                <div class="evento-info">
+                    <h3>{{ evento.name }}</h3>
+                    <p><strong>Localidad:</strong> {{ evento.localidad.name }}</p>
+                    <p><strong>Fecha:</strong> {{ evento.fecha_inicio|date:"d M Y" }} - {{ evento.fecha_fin|date:"d M Y" }}</p>
+                    <p><strong>Descripción:</strong> Disfruta de una experiencia única llena de música, color y cultura.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+</div>
+{% endblock %}

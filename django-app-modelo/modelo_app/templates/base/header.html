@@ -1,12 +1,13 @@
 <header>
     <div class="logo">
-        <h1>Mi Aplicación</h1>
+        <a href="{% url 'index' %}"><h1>Examen</h1></a>
     </div>
     <nav>
         <ul>
             <li><a href="{% url 'index' %}">Inicio</a></li>
-            <li><a href="{% url 'users:index' %}">Usuarios</a></li>
-            <li><a href="{% url 'orders:index' %}">Órdenes</a></li>
+            <li><a href="{% url 'eventos' %}">Eventos</a></li>
+            <li><a href="{% url 'boletos' %}">Boletos</a></li>
+            <li><a href="{% url 'admin:index' %}">Admin</a></li>
         </ul>
     </nav>
 </header>

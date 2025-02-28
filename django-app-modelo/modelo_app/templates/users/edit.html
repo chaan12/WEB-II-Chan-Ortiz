@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Usuario</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/edit_user.css' %}">
+    <link rel="stylesheet" href="{% static 'css/edit_user.css' %}?v=1">
 </head>
 <body>
     <div class="container">
@@ -24,6 +24,20 @@
 
             <label for="photo">URL de Imagen:</label>
             <input type="text" id="photo" name="photo" value="{{ user.photo }}" required>
+            
+            <h2>Dirección</h2>
+
+            <label for="street">Calle:</label>
+            <input type="text" id="street" name="street" value="{{ user_address.street|default_if_none:'' }}" required>
+
+            <label for="zip_code">Código Postal:</label>
+            <input type="text" id="zip_code" name="zip_code" value="{{ user_address.zip_code|default_if_none:'' }}" required>
+
+            <label for="city">Ciudad:</label>
+            <input type="text" id="city" name="city" value="{{ user_address.city|default_if_none:'' }}" required>
+
+            <label for="country">País:</label>
+            <input type="text" id="country" name="country" value="{{ user_address.country|default_if_none:'' }}" required>
 
             <button type="submit">Actualizar</button>
         </form>

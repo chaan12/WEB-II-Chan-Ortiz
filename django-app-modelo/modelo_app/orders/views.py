@@ -6,9 +6,14 @@ def index(request):
     questions = Question.objects.all()
     data = {
         "questions": questions,
-        "titulo": "Index de Orders por variable",
-        "total_orders": 100,
-        "total_payments": 200,
+        "titulo": "Órdenes y Preguntas Registradas",
+        "total_orders": len(questions), 
+        "total_payments": sum([order['total'] for order in [
+            {"id": 1, "total": 100},
+            {"id": 2, "total": 200},
+            {"id": 3, "total": 300},
+            {"id": 4, "total": 400}
+        ]]), 
         "orders": [
             {"id": 1, "total": 100},
             {"id": 2, "total": 200},

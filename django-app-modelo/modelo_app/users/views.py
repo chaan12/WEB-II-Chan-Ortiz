@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import User
+from .models import User, UserAddress
 
 def usersIndex(request):
     users = User.objects.all()
@@ -17,7 +17,10 @@ def createUser(request):
             rfc = request.POST.get("rfc")
             photo = request.POST.get("photo")
 
-            User.objects.create(name=name, email=email, age=age, rfc=rfc, photo=photo)
+            user = User.objects.create(name=name, email=email, age=age, rfc=rfc, photo=photo)
+            
+            UserAddress.objects.create(user=user, street="", zip_code="", city="", country="")
+            
             return redirect('users:index')
     
     except Exception as e:
@@ -27,10 +30,12 @@ def createUser(request):
 
 def userDetail(request, id):
     user = get_object_or_404(User, id=id)
-    return render(request, "users/detail.html", {"user": user})
+    user_address = UserAddress.objects.filter(user=user).first()
+    return render(request, "users/detail.html", {"user": user, "user_address": user_address})
 
 def edit_user(request, id):
     user = get_object_or_404(User, id=id)
+    user_address = UserAddress.objects.filter(user=user).first()
     
     if request.method == 'POST':
         try:
@@ -39,8 +44,26 @@ def edit_user(request, id):
             user.age = request.POST.get('age', user.age)
             user.photo = request.POST.get('photo', user.photo)
             user.save()
+
+            if user_address:
+                user_address.street = request.POST.get('street', user_address.street)
+                user_address.zip_code = request.POST.get('zip_code', user_address.zip_code)
+                user_address.city = request.POST.get('city', user_address.city)
+                user_address.country = request.POST.get('country', user_address.country)
+                user_address.save()
+            else:
+                # Si no tiene dirección, se crea una nueva
+                user_address = UserAddress.objects.create(
+                    user=user,
+                    street=request.POST.get('street', ""),
+                    zip_code=request.POST.get('zip_code', ""),
+                    city=request.POST.get('city', ""),
+                    country=request.POST.get('country', "")
+                )
+
             return redirect('users:index')
+
         except Exception as e:
-            return render(request, 'users/edit.html', {'user': user, 'error': str(e)})
-    
-    return render(request, 'users/edit.html', {'user': user})
+            return render(request, 'users/edit.html', {'user': user, 'user_address': user_address, 'error': str(e)})
+
+    return render(request, 'users/edit.html', {'user': user, 'user_address': user_address})

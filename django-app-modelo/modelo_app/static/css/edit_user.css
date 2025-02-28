@@ -1,78 +1,75 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
 body {
-    font-family: 'Poppins', Arial, sans-serif;
-    background: linear-gradient(135deg, #4B0082, #800080);
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #4B0082, #8A2BE2);
+    color: white;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: white;
+    overflow: hidden;
 }
 
 .container {
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+    width: 420px;
     text-align: center;
-    width: 400px;
+    overflow-y: auto;
+    max-height: 90vh;
 }
 
 h1 {
-    color: #6A0DAD;
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 24px;
     margin-bottom: 20px;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 15px; 
+    padding: 10px; 
 }
 
 label {
-    font-size: 16px;
-    font-weight: 600;
-    color: #4B0082;
     text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 input {
+    width: calc(100% - 20px);
     padding: 12px;
-    border: 2px solid #6A0DAD;
-    border-radius: 8px;
-    font-size: 16px;
-    background: #F9F9F9;
-    color: #333;
-    transition: 0.3s;
-    width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #DDA0DD;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
 }
 
 input:focus {
-    border-color: #4B0082;
-    box-shadow: 0 0 5px rgba(75, 0, 130, 0.5);
     outline: none;
+    border-color: #E6A8D7;
+    background: rgba(255, 255, 255, 0.3);
 }
 
 button {
-    padding: 12px;
-    background: linear-gradient(135deg, #FFD700, #FFA500);
-    color: #4B0082;
-    font-size: 18px;
-    font-weight: 700;
+    background: #E6A8D7;
+    color: white;
     border: none;
-    border-radius: 8px;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    transition: 0.3s ease-in-out;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: linear-gradient(135deg, #FFA500, #FFD700);
+    background: #DA70D6;
     transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
 }

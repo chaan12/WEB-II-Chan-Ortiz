@@ -1,0 +1,67 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/addEvent.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="contenedor-evento">
+    <div class="fila">
+        <div class="columna-formulario">
+            <h1 class="titulo">Agregar evento</h1>
+
+            <div class="formulario">
+                <input type="text" id="nombre-evento" placeholder="Nombre del evento">
+                
+                <label for="fecha-inicio">Fecha inicio</label>
+                <input type="datetime-local" id="fecha-inicio">
+
+                <label for="fecha-fin">Fecha final</label>
+                <input type="datetime-local" id="fecha-fin">
+
+                <label for="localidad">Localidad</label>
+                <select id="localidad">
+                    {% for localidad in localidades %}
+                        <option value="{{ localidad.id }}">{{ localidad.name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="imagen-url">URL de la imagen</label>
+                <input type="url" id="imagen-url" placeholder="https://ejemplo.com/imagen.jpg">
+
+                <button id="btn-agregar">Agregar</button>
+            </div>
+        </div>
+
+        <div class="columna-reglas">
+            <h2>Reglas</h2>
+            <ul>
+                <li>Ningún campo debe quedar vacío.</li>
+                <li>La fecha de finalización no puede ser menor que la fecha inicio.</li>
+                <li>La fecha de inicio debe ser mayor al día de hoy.</li>
+                <li>No puedes agregar dos eventos seguidos en la misma localidad.</li>
+                <li>Debe mostrarse mensaje de éxito o error.</li>
+                <li>El envío de información debe realizarse mediante `fetch` en JavaScript.</li>
+                <li>El botón "Eliminar" debe ejecutarse con `fetch` en JavaScript.</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2 class="subtitulo">Eventos recientemente agregados</h2>
+    <table id="tabla-eventos">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Localidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-eventos-body">
+        </tbody>
+    </table>
+</div>
+
+<script src="{% static 'js/addEvent.js' %}"></script>
+{% endblock %}

@@ -4,17 +4,43 @@
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/boletos.css' %}">
 {% endblock %}
+
 {% block content %}
-    <h1 class="titulo">Boletos</h1>
-    <div class="boletos-container">
-        {% for boleto in boletos %}
-            <div class="boleto-card">
-                <img src="{{ boleto.imagen_url }}" alt="Boleto para {{ boleto.evento.name }}" class="boleto-img">
-                <h2>{{ boleto.evento.name }}</h2>
-                <p class="localidad">Localidad: {{ boleto.evento.localidad.name }}</p>
-                <p class="precio">Precio: ${{ boleto.precio }}</p>
-                <button class="btn-comprar">Comprar</button>
+    <div class="contenedor-boletos">
+        
+        {% if evento %}
+            <a href="{% url 'eventos' %}" class="boton-regresar">← Regresar a Eventos</a>
+
+        {% endif %}
+
+        <h1 class="titulo">
+            {% if evento %}
+                Boletos para {{ evento.name }}
+
+                <a href="{% url 'agregar_boleto' %}" class="boton-agregar-boleto">Agregar boleto</a>
+            {% else %}
+                Todos los Boletos
+
+                <a href="{% url 'agregar_boleto' %}" class="boton-agregar-boleto">Agregar boleto</a>
+            {% endif %}
+        </h1>
+
+        {% if sin_boletos %}
+            <p class="mensaje-sin-boletos">Sin productos disponibles</p>
+        {% else %}
+            <div class="boletos-container">
+                {% for boleto in boletos %}
+                <div class="boleto-card">
+                    <img class="boleto-imagen" src="{{ boleto.imagen_url }}" alt="Boleto para {{ boleto.evento.name }}">
+                    <div class="boleto-info">
+                        <h3>{{ boleto.evento.name }}</h3>
+                        <p><strong>Fecha:</strong> {{ boleto.fecha|date:"d M Y" }}</p>
+                        <p><strong>Precio:</strong> ${{ boleto.precio }}</p>
+                        <a href="#" class="boton-comprar">Comprar</a>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-        {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}

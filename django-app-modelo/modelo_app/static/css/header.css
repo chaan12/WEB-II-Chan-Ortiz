@@ -2,7 +2,7 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 95%;
     height: 70px;
     background: linear-gradient(45deg, #4B0082, #6A0DAD, #8000FF, #9932CC, #BA55D3);
     background-size: 200% 200%;
@@ -37,7 +37,6 @@ header {
     text-decoration: none;
 }
 
-/* 🔹 NAVEGACIÓN */
 nav ul {
     list-style: none;
     display: flex;

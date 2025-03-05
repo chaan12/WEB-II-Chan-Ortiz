@@ -12,15 +12,18 @@ class Evento(models.Model):
     fecha_inicio = models.DateTimeField(null=False)
     fecha_fin = models.DateTimeField(null=False)
     localidad = models.ForeignKey(Localidad, on_delete=models.CASCADE)
-    imagen_url = models.URLField(null=True, blank=True) 
+    imagen_url = models.URLField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
+    
 
 class Producto(models.Model):
     name = models.CharField(max_length=200)
     precio = models.FloatField()
     localidad = models.ForeignKey(Localidad, on_delete=models.SET_NULL, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)  
 
     def __str__(self):
         return self.name

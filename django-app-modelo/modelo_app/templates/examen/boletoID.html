@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/boletos.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="boleto-detalle">
+        <h1>{{ boleto.evento.name }}</h1>
+        <img src="{{ boleto.imagen_url }}" alt="Boleto">
+        <p><strong>Precio:</strong> ${{ boleto.precio }}</p>
+        <p><strong>Fecha:</strong> {{ boleto.fecha }}</p>
+        <a href="{% url 'boletos' %}" class="boton-volver">Ver todos los boletos</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/addProduct.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="contenedor-producto">
+    <div class="fila">
+        <div class="columna-formulario">
+            <h1 class="titulo">Agregar producto</h1>
+
+            <div class="formulario">
+                <input type="text" id="nombre-producto" placeholder="Nombre del producto">
+
+                <label for="precio">Precio</label>
+                <input type="number" id="precio" placeholder="Precio del producto" min="0.01" step="0.01">
+
+                <label for="localidad">Localidad</label>
+                <select id="localidad">
+                    {% for localidad in localidades %}
+                        <option value="{{ localidad.id }}">{{ localidad.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <button id="btn-agregar">Agregar</button>
+            </div>
+        </div>
+
+        <div class="columna-reglas">
+            <h2>Reglas</h2>
+            <ul>
+                <li>Ningún campo debe quedar vacío.</li>
+                <li>Mostrar mensaje de éxito o error en caso de fallar.</li>
+                <li>El envío de información debe realizarse mediante `fetch` en JavaScript.</li>
+                <li>El botón "Eliminar" debe ejecutarse con `fetch` en JavaScript.</li>
+                <li>El precio del producto debe ser mayor a 0.</li>
+                <li>Solo se pueden agregar 10 productos por día.</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2 class="subtitulo">Productos recientemente agregados</h2>
+    <table id="tabla-productos">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Localidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tabla-productos-body">
+        </tbody>
+    </table>
+</div>
+
+<script src="{% static 'js/addProduct.js' %}"></script>
+{% endblock %}

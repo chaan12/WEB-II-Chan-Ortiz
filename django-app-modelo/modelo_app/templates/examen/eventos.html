@@ -6,18 +6,25 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="titulo">Eventos</h1>
-    <div class="eventos-container">
-        {% for evento in eventos %}
+    <div class="contenedor-eventos">
+
+        <h1 class="titulo">Eventos</h1>
+
+
+        <a href="{% url 'agregar_evento' %}" class="boton-agregar-evento">Agregar evento</a>
+        <div class="eventos-container">
+            {% for evento in eventos %}
             <div class="evento-card">
-                <img src="{{ evento.imagen_url }}" alt="Imagen de {{ evento.name }}" class="evento-img">
+                <img class="evento-imagen" src="{{ evento.imagen_url }}" alt="{{ evento.name }}">
                 <div class="evento-info">
-                    <h2>{{ evento.name }}</h2>
-                    <p class="localidad"><strong>Localidad:</strong> {{ evento.localidad.name }}</p>
-                    <p class="descripcion"><strong>Descripción:</strong> Lorem ipsum dolor sit amet consectetur adipiscing elit. Quaerat, cumque. Possimus modi impedit beatae.</p>
-                    <a href="{% url 'boletos' %}" class="btn-boletos">Boletos</a>
+                    <h3 class="evento-titulo">{{ evento.name }}</h3>
+                    <p><strong>Localidad:</strong> {{ evento.localidad.name }}</p>
+                    <p><strong>Descripción:</strong> Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+                    <a href="{% url 'boletos_por_evento' evento.id %}" class="boton-boletos">Boletos</a>
+
                 </div>
             </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

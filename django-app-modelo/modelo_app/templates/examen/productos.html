@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/productos.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="contenedor-productos">
+
+        <h1 class="titulo">Productos</h1>
+
+        <a href="{% url 'agregar_producto' %}" class="boton-agregar-producto">Agregar producto</a>
+
+        <div class="productos-container">
+            {% for producto in productos %}
+            <div class="producto-card">
+                <div class="producto-info">
+                    <h3 class="producto-titulo">{{ producto.name }}</h3>
+                    <p><strong>Precio:</strong> ${{ producto.precio }}</p>
+                    {% if producto.localidad %}
+                        <p><strong>Localidad:</strong> {{ producto.localidad.name }}</p>
+                    {% else %}
+                        <p><strong>Localidad:</strong> No especificada</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+{% endblock %}

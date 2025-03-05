@@ -1,0 +1,9 @@
+<div class="boleto-card">
+    <img class="boleto-imagen" src="{{ boleto.imagen_url }}" alt="Boleto {{ boleto.id }}">
+    <div class="boleto-info">
+        <h3 class="boleto-titulo">Boleto {{ boleto.id }}</h3>
+        <p class="boleto-localidad"><strong>Localidad :</strong> {{ boleto.localidad.name }}</p>
+        <p class="boleto-precio"><strong>Precio:</strong> ${{ boleto.precio }}</p>
+        <a href="{% url 'detalle_boleto' boleto.id %}" class="boton-comprar">Comprar</a>
+    </div>
+</div>

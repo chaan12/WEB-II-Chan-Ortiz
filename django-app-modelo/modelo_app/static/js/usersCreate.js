@@ -1,7 +1,7 @@
 const button = document.querySelector("#create-user-button")
 button.addEventListener("click", function(event){
     event.preventDefault()
-    const form = document.querySelector("#user-create-form")  // Asegúrate de que el formulario tenga este ID
+    const form = document.querySelector("#user-create-form") 
     const formData = new FormData(form)
     const data = {}
     const token = document.querySelector("#csrf_token").value

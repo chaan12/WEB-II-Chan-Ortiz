@@ -11,19 +11,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function cargarEventosRecientes() {
         console.log("📡 Cargando eventos recientes...");
-
+    
         fetch("/api/eventos-hoy/")
             .then(response => response.json())
             .then(data => {
                 console.log("📂 Eventos recibidos:", data.eventos);
                 tablaEventosBody.innerHTML = ""; 
-
+    
                 if (data.eventos.length === 0) {
                     console.warn("⚠️ No hay eventos recientes.");
                     tablaEventosBody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No hay eventos recientes.</td></tr>";
                     return;
                 }
-
+    
                 data.eventos.forEach(evento => {
                     const fila = document.createElement("tr");
                     fila.innerHTML = `
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     `;
                     tablaEventosBody.appendChild(fila);
                 });
-
+    
                 document.querySelectorAll(".boton-eliminar").forEach(boton => {
                     boton.addEventListener("click", eliminarEvento);
                 });
@@ -47,20 +47,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function agregarEvento() {
         console.log("🆕 Intentando agregar nuevo evento...");
-
+    
         const nombre = nombreEvento.value.trim();
         const inicio = fechaInicio.value;
         const fin = fechaFin.value;
         const localidadID = localidad.value;
         const imagen = imagenUrl.value.trim();
-
+    
         console.log("🔹 Datos recopilados:", { nombre, inicio, fin, localidadID, imagen });
-
+    
         if (!nombre || !inicio || !fin || !localidadID || !imagen) {
             alert("❌ Todos los campos son obligatorios.");
             return;
         }
-
+    
+        btnAgregar.disabled = true;
+        btnAgregar.innerText = "Agregando... ⏳";
+    
         const eventoData = {
             nombre: nombre,
             fechaInicio: inicio,
@@ -68,9 +71,9 @@ document.addEventListener("DOMContentLoaded", () => {
             localidad_id: localidadID,
             imagen_url: imagen
         };
-
+    
         console.log("📤 Enviando datos al servidor:", eventoData);
-
+    
         fetch("/api/agregar-evento/", {
             method: "POST",
             headers: {
@@ -83,24 +86,39 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data.success) {
                 console.log("✅ Evento agregado correctamente.");
                 alert("Evento agregado correctamente.");
+    
+                // Limpiar formulario
                 limpiarFormulario();
-                cargarEventosRecientes();
+    
+                // Esperar un breve tiempo antes de recargar eventos
+                setTimeout(() => {
+                    cargarEventosRecientes();
+                    btnAgregar.disabled = false;
+                    btnAgregar.innerText = "Agregar";
+                }, 500); // Reducimos el tiempo de espera
             } else {
                 console.error("❌ Error:", data.message);
                 alert(`Error: ${data.message}`);
+                btnAgregar.disabled = false;
+                btnAgregar.innerText = "Agregar";
             }
         })
-        .catch(error => console.error("❌ Error al enviar datos:", error));
+        .catch(error => {
+            console.error("❌ Error al enviar datos:", error);
+            btnAgregar.disabled = false;
+            btnAgregar.innerText = "Agregar";
+        });
     }
 
     function eliminarEvento(event) {
         const eventoID = event.target.getAttribute("data-id");
         console.log(`🗑️ Intentando eliminar evento ID: ${eventoID}`);
-
+    
         if (!confirm("¿Estás seguro de que deseas eliminar este evento?")) {
+            console.warn("Eliminación cancelada.");
             return;
         }
-
+    
         fetch(`/api/eliminar-evento/${eventoID}/`, {
             method: "DELETE",
             headers: {
@@ -112,7 +130,19 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data.success) {
                 console.log(`✅ Evento ${eventoID} eliminado correctamente.`);
                 alert("Evento eliminado correctamente.");
-                cargarEventosRecientes();
+    
+                fetch("/api/eventos-hoy/")
+                    .then(response => response.json())
+                    .then(eventosData => {
+                        if (!eventosData.eventos || eventosData.eventos.length === 0) {
+                            console.warn("⚠️ No hay eventos recientes.");
+                            tablaEventosBody.innerHTML = "<tr><td colspan='5' style='text-align:center;'>No hay eventos recientes.</td></tr>";
+                        } else {
+                            cargarEventosRecientes();
+                        }
+                    })
+                    .catch(error => console.error("❌ Error al verificar eventos restantes:", error));
+    
             } else {
                 console.error("❌ Error eliminando evento:", data.message);
                 alert(`Error: ${data.message}`);
@@ -122,6 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function limpiarFormulario() {
+        console.log("🧹 Limpiando formulario...");
         nombreEvento.value = "";
         fechaInicio.value = "";
         fechaFin.value = "";

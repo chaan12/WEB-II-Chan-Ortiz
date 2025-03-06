@@ -10,17 +10,14 @@
         
         {% if evento %}
             <a href="{% url 'eventos' %}" class="boton-regresar">← Regresar a Eventos</a>
-
         {% endif %}
 
         <h1 class="titulo">
             {% if evento %}
                 Boletos para {{ evento.name }}
-
                 <a href="{% url 'agregar_boleto' %}" class="boton-agregar-boleto">Agregar boleto</a>
             {% else %}
                 Todos los Boletos
-
                 <a href="{% url 'agregar_boleto' %}" class="boton-agregar-boleto">Agregar boleto</a>
             {% endif %}
         </h1>

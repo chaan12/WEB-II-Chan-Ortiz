@@ -15,6 +15,7 @@
         <div class="productos-container">
             {% for producto in productos %}
             <div class="producto-card">
+                <img class="producto-imagen" src="https://img.freepik.com/vector-gratis/gradiente-carnaval-barranquilla-ilustracion_52683-153960.jpg?semt=ais_hybrid" alt="Imagen del producto">
                 <div class="producto-info">
                     <h3 class="producto-titulo">{{ producto.name }}</h3>
                     <p><strong>Precio:</strong> ${{ producto.precio }}</p>

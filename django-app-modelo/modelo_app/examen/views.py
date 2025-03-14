@@ -23,6 +23,13 @@ def agregar_evento(request):
     return render(request, 'examen/addEvent.html', {'localidades': localidades, 'eventos_hoy': eventos_hoy})
 
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
+import json
+from datetime import datetime
+from .models import Evento, Localidad
+
 @csrf_exempt
 def api_agregar_evento(request):
     if request.method == "POST":
@@ -64,12 +71,31 @@ def api_agregar_evento(request):
 
             if fecha_inicio < timezone.now():
                 print("⚠️ Error: La fecha de inicio es menor a la actual")
-                return JsonResponse({"success": False, "message": "La fecha de inicio debe ser mayor. "}, status=400)
+                return JsonResponse({"success": False, "message": "La fecha de inicio debe ser mayor a la actual."}, status=400)
 
             if fecha_fin <= fecha_inicio:
                 print("⚠️ Error: La fecha final debe ser mayor a la fecha de inicio")
                 return JsonResponse({"success": False, "message": "La fecha final debe ser mayor que la fecha de inicio."}, status=400)
 
+            # 📌 Buscar eventos en la misma localidad que se solapen en fechas
+            eventos_conflictivos = Evento.objects.filter(
+                localidad=localidad,
+                fecha_inicio__lt=fecha_fin,  # El evento empieza antes de que termine el nuevo
+                fecha_fin__gt=fecha_inicio   # El evento termina después de que empieza el nuevo
+            )
+
+            print(f"📊 Eventos en conflicto en {localidad.name}: {eventos_conflictivos.count()}")
+            for evento in eventos_conflictivos:
+                print(f"❌ Evento en conflicto: {evento.name} | Inicio: {evento.fecha_inicio} | Fin: {evento.fecha_fin}")
+
+            if eventos_conflictivos.exists():
+                print("❌ Error: Ya hay un evento que se solapa en esta localidad")
+                return JsonResponse({
+                    "success": False,
+                    "message": "No puedes agregar un evento en esta localidad porque se solapa con otro evento activo."
+                }, status=400)
+
+            # ✅ Si no hay eventos en conflicto, permitir la creación
             evento = Evento.objects.create(
                 name=nombre,
                 fecha_inicio=fecha_inicio,

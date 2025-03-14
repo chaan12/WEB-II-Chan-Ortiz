@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone"></script>
+    <script type="text/babel" src="components/button.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script type="text/babel">
+    function saludar() {
+        alert('Hola Mundo');
+    }
+    function despertar() {
+        alert('Adios Mundo');
+    }
+    function App() {
+    const { useState } = React;
+    const [contador, setContador] = useState(0);
+    const [contador2, setContador2] = useState(0);
+    const [visibilidad, setVisibilidad] = useState({});
+    const [alumnoCalificacion, setAlumnoCalificacion] = useState([
+        { nombre: "Eduardo", calificacion: 10, materia: "matematicas" },
+        { nombre: "Juan", calificacion: 9, materia: "español" },
+        { nombre: "Pedro", calificacion: 8, materia: "matematicas" },
+        { nombre: "Maria", calificacion: 7, materia: "historia" },
+        { nombre: "Ana", calificacion: 6, materia: "geografia" },
+        { nombre: "Luis", calificacion: 9, materia: "ciencias" },
+        { nombre: "Carlos", calificacion: 10, materia: "filosofía" },
+        { nombre: "Fernanda", calificacion: 7, materia: "química" },
+        { nombre: "Sofia", calificacion: 8, materia: "biología" },
+        { nombre: "Daniel", calificacion: 6, materia: "educación física" }
+    ]);
+
+    function toggleVisibilidad(nombre) {
+        setVisibilidad(prev => ({ ...prev, [nombre]: !prev[nombre] }));
+    }
+
+    return (
+        <div>
+            <h1>Hola Mundo</h1>
+            <p>Esto es React</p>
+            
+            <div className="container">
+                {alumnoCalificacion.filter(alumno => alumno.calificacion >= 5).map((alumno, index) => (
+                    <div key={index} className="card">
+                        <h3>{alumno.nombre}</h3>
+                        {visibilidad[alumno.nombre] && (
+                            <div className="info">
+                                <p>El alumno {alumno.nombre} tiene</p>
+                                <p>una calificación de {alumno.calificacion}</p>
+                                <p>en la materia de {alumno.materia}</p>
+                            </div>
+                        )}
+                        <button onClick={() => toggleVisibilidad(alumno.nombre)}>
+                            {visibilidad[alumno.nombre] ? "Ocultar información" : "Ver información"}
+                        </button>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+</script>
+
+</html>
